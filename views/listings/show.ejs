@@ -1,0 +1,153 @@
+<% layout("/layouts/boilerplate") %>
+
+<script>
+  const mapToken = "<%= process.env.MAP_TOKEN %>";
+  const listing = <%- JSON.stringify(listing)%>; //Ignore this error the commas turn listing into a string instead of object but then it becomes unaccessible by map
+</script>
+<script src="/js/map.js"></script>
+
+
+<link rel="stylesheet" href="/css/responsive.css" />
+
+<div class="row col-12 col-sm-12 mt-3 mx-auto">
+  <div class="col-8 offset-xl-2 mb-3">
+    <h2><%=listing.title%></h2>
+  </div>
+  <div class="card show-card col-6 offset-lg-2 listing-card">
+    <img
+      src="<%=listing.image.url%>"
+      class="card-img-top show-img"
+      alt="listing_image"
+    />
+
+    <div class="card-body col-lg-8 mb-3">
+      <p class="card-text"><b> By: </b><%=listing.owner.username%></p>
+      <p class="card-text"><b>About: </b><%=listing.description%></p>
+      <p class="card-text">
+        &#8377; <%= listing.price.toLocaleString("en-IN")%> / night
+      </p>
+      <p class="card-text"><b>City: </b><%=listing.location%></p>
+      <p class="card-text"><b>Country: </b><%=listing.country%></p>
+    </div>
+
+    <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+    <div class="show-btns">
+      <button class="btn btn-dark edit-btn">
+        <a href="/listings/<%= listing._id %>/edit">Edit this Listing</a>
+      </button>
+      <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+        <button class="btn btn-dark">Delete this listing</button>
+      </form>
+    </div>
+    <% } %>
+  </div>
+
+  <div class="all-reviews col-xl-8 offset-xl-2 mt-3 mb-3">
+    <% if(currUser) { %>
+    <form
+      action="/listings/<%=listing.id%>/reviews"
+      method="post"
+      novalidate
+      class="needs-validation"
+    >
+      <hr />
+      <h3>Leave a Review</h3>
+
+      <div class="mt-3">
+        <fieldset class="starability-slot">
+          <h6 class="mt-1">Rating</h6>
+          <input
+            type="radio"
+            id="no-rate"
+            class="input-no-rate"
+            name="review[rating]"
+            value="1"
+            checked
+            aria-label="No rating."
+          />
+          <input
+            type="radio"
+            id="first-rate1"
+            name="review[rating]"
+            value="1"
+          />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input
+            type="radio"
+            id="first-rate2"
+            name="review[rating]"
+            value="2"
+          />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input
+            type="radio"
+            id="first-rate3"
+            name="review[rating]"
+            value="3"
+          />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input
+            type="radio"
+            id="first-rate4"
+            name="review[rating]"
+            value="4"
+          />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input
+            type="radio"
+            id="first-rate5"
+            name="review[rating]"
+            value="5"
+          />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+      </div>
+
+      <div class="mt-3">
+        <label for="" class="form-label">Comment</label>
+        <textarea
+          name="review[comment]"
+          rows="5"
+          cols="20"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="invalid-feedback">Please add a comment!</div>
+      </div>
+
+      <button class="btn btn-outline-dark mt-3">Submit</button>
+    </form>
+    <% } %>
+    <hr />
+
+    <% if(listing.reviews.length > 0) { %>
+    <div class="row">
+      <p><b>All reviews</b></p>
+      <% for (review of listing.reviews) { %>
+      <div class="card review col-5 ms-xl-3 mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= review.author.username %></h5>
+          <p class="starability-result" data-rating="<%= review.rating %>"></p>
+          <p class="card-text"><%= review.comment %></p>
+
+          <% if(currUser) { %>
+          <form
+            method="POST"
+            action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE"
+          >
+            <button class="btn btn-sm btn-dark">Delete</button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+
+  <div class="col-8 offset-xl-2 mt-3 mb-3 mapDiv">
+    <h2>Where you will be</h2>
+    <div id="map"></div>
+  </div>
+</div>
+

@@ -1,0 +1,43 @@
+<% layout("/layouts/boilerplate") %>
+
+<link rel="stylesheet" href="/css/responsive.css" />
+
+<div class="row mt-3">
+  <h2 class="col-6 offset-xl-4 loginHeading mt-3">Sign up on Wanderlust</h2>
+  <div class="col-6 offset-xl-3 loginFormDiv">
+    <form
+      action="/login"
+      method="post"
+      class="needs-validation login-form"
+      novalidate
+    >
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          name="username"
+          id="username"
+          placeholder="Enter your username"
+          type="text"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Username can't be empty</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          name="password"
+          id="password"
+          placeholder="Enter your password"
+          type="text"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Password can't be empty</div>
+      </div>
+
+      <button class="btn btn-success">Login</button>
+    </form>
+  </div>
+</div>

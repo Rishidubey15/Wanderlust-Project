@@ -1,0 +1,254 @@
+@media (min-width: 991px) and (max-width: 1200px) {
+  .container {
+    max-width: 800px;
+  }
+
+  .card {
+    width: 90vw !important;
+    margin: auto;
+  }
+
+  .show-img {
+    width: 100% !important;
+  }
+
+  .card-body {
+    width: 100% !important;
+  }
+
+  /* login page part */
+  .loginFormDiv {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .loginHeading {
+    width: 100vw !important;
+    text-align: center;
+  }
+
+  .login-form {
+    width: 60vw !important;
+  }
+
+  /* Signup page part */
+  .signUpHeading {
+    width: 100vw !important;
+    text-align: center;
+  }
+
+  .signUpFormDiv {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .signUpForm {
+    width: 50vw !important;
+  }
+
+  /* Map part */
+  .mapDiv {
+    width: 100vw !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .card {
+    width: 90vw !important;
+  }
+
+  .show-img {
+    width: 100% !important;
+  }
+
+  .card-body {
+    width: 100% !important;
+  }
+
+  /* login page part */
+  .loginFormDiv {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .loginHeading {
+    width: 100vw !important;
+    text-align: center;
+  }
+
+  .login-form {
+    width: 60vw !important;
+  }
+
+  /* Signup page part */
+  .signUpHeading {
+    /* background-color: red !important; */
+    width: 100vw !important;
+    text-align: center;
+  }
+
+  .signUpFormDiv {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .signUpForm {
+    width: 60vw !important;
+  }
+
+  /* Map part */
+  .mapDiv {
+    width: 100vw !important;
+  }
+
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .container {
+    max-width: 700px;
+  }
+
+  .col-8 h2 {
+    margin-left: 10px;
+  }
+
+  .card {
+    width: 90vw !important;
+    margin: auto;
+  }
+
+  .show-img {
+    width: 100% !important;
+    height: 45vh !important;
+  }
+
+  .card-body {
+    width: 100% !important;
+  }
+
+  /* login page part */
+  .loginFormDiv {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .loginHeading {
+    width: 100vw !important;
+    text-align: center;
+  }
+
+  .login-form {
+    width: 70vw !important;
+  }
+
+  /* Signup page part */
+  .signUpHeading {
+    /* background-color: red !important; */
+    width: 100vw !important;
+    text-align: center;
+  }
+
+  .signUpFormDiv {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .signUpForm {
+    width: 70vw !important;
+  }
+
+  /* Map part */
+  .mapDiv {
+    width: 100vw !important;
+  }
+}
+
+/* For extra small devices like phones in portrait mode */
+@media screen and (max-width: 480px) {
+  .col-8 h2 {
+    width: 100vw !important;
+  }
+
+  .card {
+    width: 100vw !important;
+  }
+
+  .show-img {
+    width: 100% !important;
+    height: 40vh !important;
+  }
+
+  .card-body {
+    width: 90vw !important;
+  }
+  .card-text {
+    width: 100%;
+    font-size: 1.1rem;
+  }
+
+  /* Reviews Part */
+  .review {
+    width: 90vw !important;
+    margin: auto;
+  }
+
+
+  /* login page part */
+  .loginFormDiv {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .loginHeading {
+    width: 100vw !important;
+    text-align: center;
+  }
+
+  .login-form {
+    width: 80vw !important;
+  }
+
+  /* Signup page part */
+  .signUpHeading {
+    width: 100vw !important;
+    text-align: center;
+  }
+
+  .signUpFormDiv {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  .signUpForm {
+    width: 80vw !important;
+  }
+
+  
+  /* MAP */
+  .mapDiv {
+    width: 100vw !important;
+  }
+
+}

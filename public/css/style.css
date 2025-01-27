@@ -1,0 +1,259 @@
+html,
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow-x: hidden;
+}
+
+.container {
+  flex: 1;
+}
+
+/* Navbar */
+.navbar {
+  height: 5rem;
+  background-color: white;
+}
+
+.container-fluid {
+  display: block;
+}
+
+.fa-compass {
+  color: #fe424d;
+  font-size: 2rem;
+}
+
+.nav-link {
+  font-size: 1.15rem !important;
+  color: #222222 !important;
+}
+
+.btn-outline {
+  background-color: #fe424d !important;
+  color: #fff;
+}
+.btn-outline:hover {
+  background-color: #e62431;
+  color: #fff;
+}
+
+/* Ensure the expanded navbar pushes content down */
+.navbar-collapse.collapse.show {
+  position: relative;
+}
+
+/* For smaller screens, ensure smooth behavior */
+@media (max-width: 768px) {
+  .navbar-collapse {
+    background-color: white; /* Optional: to give a clear background to the dropdown */
+  }
+
+  .navbar-collapse.collapse.show {
+    padding-bottom: 1rem; /* Add spacing below the navbar when expanded */
+    border-bottom: 1px solid #ddd; /* Optional: visual separation */
+  }
+}
+
+/* Index Part */
+.mainPage-heading {
+  margin-top: 1rem;
+}
+
+.listing-card {
+  border: none !important;
+  margin-bottom: 2rem;
+}
+
+.card-img-top {
+  border-radius: 1rem;
+  width: 100% !important;
+  object-fit: cover !important;
+}
+
+.card-body {
+  padding: 0;
+}
+
+.card-text p {
+  font-weight: 400;
+}
+
+.listing-link {
+  text-decoration: none;
+}
+
+.card-img-overlay {
+  opacity: 0;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: white;
+}
+
+#filters {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+#filter-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#filterToggle {
+  display: none;
+}
+
+.open #filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-direction: row;
+}
+
+@media (max-width: 768px) {
+  #filters {
+    gap: 20px;
+    justify-content: space-between;
+    justify-content: center;
+  }
+
+  #filter-container {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #filterToggle {
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #fe424d;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background-color: #fe424d;
+    color: white;
+  }
+}
+
+.filter {
+  /* background-color: red; */
+  margin-right: 2rem;
+  opacity: 0.7;
+  margin-top: 1rem;
+}
+
+.filter:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.tax-info {
+  display: none;
+  opacity: 0.7;
+  margin: auto;
+}
+
+.tax-toggle {
+  border: 1px solid black;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+}
+
+/* New Listing: Form */
+.add-btn {
+  background-color: #fe424d !important;
+  border: none !important;
+}
+
+/* Edit Listing: Form */
+.edit-btn {
+  background-color: #fe424d !important;
+  border: none !important;
+}
+
+/* Show page */
+.show-card {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.show-img {
+  width: 50vw !important;
+  height: 50vh;
+  object-fit: cover;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.show-btns a {
+  text-decoration: none;
+  color: white;
+}
+
+.show-btns {
+  display: flex;
+  gap: 10px;
+}
+
+.card-body {
+  width: 100% !important;
+  text-align: left;
+}
+
+.card-text {
+  font-size: 1.2rem;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+/* Footer */
+footer {
+  background-color: rgb(221, 221, 221);
+}
+
+.footer-items > p {
+  cursor: pointer;
+}
+
+/* Login Form */
+.login-form {
+  margin-top: 2%;
+  border: 2px solid rgb(183, 206, 183);
+  border-radius: 10px;
+  padding: 2rem;
+  height: 40 vh;
+  margin-top: 30px;
+}
+
+/* MAP */
+#map {
+  height: 400px;
+  width: 100%;
+  margin: 30px 0;
+}
+
+
+/* Flash Responsive Design */
+@media (min-width: 468px) and (max-width: 991px) {
+  .alert {
+    align-self: center;
+    width: 65vw;
+  }
+}
+
+@media screen and (max-width: 468px) {
+  .alert {
+    align-self: center;
+    width: 80vw;
+  }
+}
