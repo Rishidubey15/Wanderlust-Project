@@ -9,6 +9,19 @@ const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
 require("dotenv").config();
 
+
+router.get("/", async (req, res) => {
+  try {
+    // Redirect to the listings page or load a homepage
+    return res.redirect("/listings");
+    // Alternatively, you can render a homepage:
+    // res.render("home");
+  } catch (error) {
+    console.error("Error loading home page:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 router
   .route("/")
 
