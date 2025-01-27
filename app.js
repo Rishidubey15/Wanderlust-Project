@@ -90,13 +90,14 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const Strategy = require("passport-local");
 
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-app.get("/", (req, res) => {
-  res.redirect("/listings");
-});
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page not found!"));
