@@ -34,7 +34,7 @@ module.exports.createNewListing = async (req, res, next) => {
 // Edit Route Callbacks
 module.exports.renderEditListingForm = async (req, res) => {
   let { id } = req.params;
-  let listing = await Listing.findById(id);
+  let listing = await Listing.findById(id).populate('owner');
   if (!listing) {
     req.flash("error", "Listing does not exist");
     return res.redirect("/listings");
