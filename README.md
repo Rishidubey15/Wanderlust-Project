@@ -76,7 +76,7 @@ Wanderlust is a full-stack web application designed to facilitate the listing an
    node app.js
    ```
 
-   The application will be accessible at `http://localhost:8080`.
+   The application will be accessible at `http://localhost:3000`.
 
  Folder Structure
 
