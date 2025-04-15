@@ -1,11 +1,11 @@
 
  Wanderlust Project
- 
+  
+ ![image](https://github.com/user-attachments/assets/9e5deee2-acc4-4308-af0d-1767adf3d997)
  🚀 Live Demo
 
 Experience the application live: [Wanderlust Live](https://wanderlust-project-h3cc.onrender.com/listings)
- 
- ![image](https://github.com/user-attachments/assets/9e5deee2-acc4-4308-af0d-1767adf3d997)
+
 
 
  Overview
@@ -93,3 +93,9 @@ Wanderlust is a full-stack web application designed to facilitate the listing an
  Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
+
+License
+This project is licensed under the MIT License. [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+
+
