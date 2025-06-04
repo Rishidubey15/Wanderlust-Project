@@ -5,8 +5,15 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 //Show all Listings Callbacks
 module.exports.showAllListings = async (req, res) => {
-  let allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
+  const { type } = req.query;
+  let query = {};
+  
+  if (type) {
+    query.type = type;
+  }
+  
+  let allListings = await Listing.find(query);
+  res.render("listings/index.ejs", { allListings, type });
 };
 
 //Create Route Callbacks

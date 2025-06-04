@@ -1,73 +1,7 @@
 <% layout("/layouts/boilerplate") %>
 
+<%- include('../includes/filters') %>
 
-<div id="filters">
-  <button id="filterToggle" class="dropdown-toggle">Filters</button>
-  <div id="filter-container">
-    <div class="filter" data-type="trending" onclick="filterListings('trending')"  >
-      <i class="fa-solid fa-fire"></i>
-      <p>Trending</p>
-    </div>
-    <div class="filter" data-type="farms">
-      <i class="fa-solid fa-tractor"></i>
-      <p>Farms</p>
-    </div>
-    <div class="filter" data-type="beach">
-      <i class="fa-solid fa-umbrella-beach"></i>
-      <p>Beach</p>
-    </div>
-    <div class="filter" data-type="iconic city">
-      <i class="fa-solid fa-mountain-city"></i>
-      <p>Iconic City</p>
-    </div>
-    <div class="filter" data-type="castle">
-      <i class="fa-brands fa-fort-awesome"></i>
-      <p>Castle</p>
-    </div>
-    <div class="filter" data-type="mountain">
-      <i class="fa-solid fa-mountain-sun"></i>
-      <p>Mountain</p>
-    </div>
-    <div class="filter" data-type="arctic">
-      <i class="fa-solid fa-snowflake"></i>
-      <p>Arctic</p>
-    </div>
-    <div class="filter" data-type="dome">
-      <i class="fa-solid fa-landmark-dome"></i>
-      <p>Dome</p>
-    </div>
-    <div class="filter" data-type="camps">
-      <i class="fa-solid fa-campground"></i>
-      <p>Camps</p>
-    </div>
-    <div class="filter" data-type="rooms">
-      <i class="fa-solid fa-bed"></i>
-      <p>Rooms</p>
-    </div>
-    <div class="filter" data-type="pools">
-      <i class="fa-solid fa-person-swimming"></i>
-      <p>Pools</p>
-    </div>
-    <div class="filter" data-type="igloo">
-      <i class="fa-solid fa-igloo"></i>
-      <p>Igloo</p>
-    </div>
-  </div>
-  <div class="tax-toggle">
-    <div class="form-check-reverse form-switch">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        role="switch"
-        id="flexSwitchCheckDefault"
-        onchange="toggleGST(this)"
-      />
-      <label class="form-check-label" for="flexSwitchCheckDefault">
-        Display taxes
-      </label>
-    </div>
-  </div>
-</div>
 
 <div class="row mt-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
   <% for(let listing of allListings) { %>
@@ -84,7 +18,7 @@
         <p class="card-text"><b><%=listing.title%></b></p>
         <p class="card-text">
           &#8377; <%= listing.price.toLocaleString("en-IN")%> / night
-          <i class="tax-info">+18% gst</i>
+          <i class="tax-info">+&#8377; <%= Math.round(listing.price * 0.18).toLocaleString("en-IN")%> GST</i>
         </p>
       </div>
     </div>

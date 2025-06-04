@@ -16,6 +16,10 @@ body {
 .navbar {
   height: 5rem;
   background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
 .container-fluid {
@@ -30,31 +34,106 @@ body {
 .nav-link {
   font-size: 1.15rem !important;
   color: #222222 !important;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #fe424d !important;
+  transform: translateY(-2px);
 }
 
 .btn-outline {
   background-color: #fe424d !important;
   color: #fff;
+  transition: all 0.3s ease;
 }
+
 .btn-outline:hover {
   background-color: #e62431;
   color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Navbar Toggle Button */
+.navbar-toggler {
+  border: none;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.navbar-toggler-icon {
+  transition: all 0.3s ease;
+}
+
+/* Navbar Collapse */
+.navbar-collapse {
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.navbar-collapse.collapsing {
+  height: auto;
+  transition: all 0.3s ease;
+}
+
+.navbar-collapse.show {
+  padding: 1rem 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 /* Ensure the expanded navbar pushes content down */
 .navbar-collapse.collapse.show {
   position: relative;
+  margin-top: 0.5rem;
 }
 
 /* For smaller screens, ensure smooth behavior */
 @media (max-width: 768px) {
-  .navbar-collapse {
-    background-color: white; /* Optional: to give a clear background to the dropdown */
+  .navbar {
+    padding: 0.5rem 1rem;
   }
 
-  .navbar-collapse.collapse.show {
-    padding-bottom: 1rem; /* Add spacing below the navbar when expanded */
-    border-bottom: 1px solid #ddd; /* Optional: visual separation */
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform-origin: top;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-collapse.collapsing {
+    transform: scaleY(0);
+  }
+
+  .navbar-collapse.show {
+    transform: scaleY(1);
+  }
+
+  .navbar-nav {
+    padding: 0.5rem 0;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  /* Add spacing for the first element after navbar */
+  #filters {
+    margin-top: 2rem;
   }
 }
 
@@ -102,16 +181,21 @@ body {
   align-items: center;
   margin-top: 1rem;
   flex-wrap: wrap;
+  transition: all 0.3s ease;
 }
 
 #filter-container {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  transition: all 0.3s ease;
+  max-height: 1000px;
+  overflow: hidden;
 }
 
 #filterToggle {
   display: none;
+  transition: all 0.3s ease;
 }
 
 .open #filter-container {
@@ -119,6 +203,18 @@ body {
   flex-wrap: wrap;
   width: 100%;
   flex-direction: row;
+  animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 768px) {
@@ -133,6 +229,13 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    max-height: 0;
+    opacity: 0;
+  }
+
+  #filter-container.open {
+    max-height: 1000px;
+    opacity: 1;
   }
 
   #filterToggle {
@@ -143,31 +246,53 @@ body {
     border-radius: 8px;
     background-color: #fe424d;
     color: white;
+    transition: all 0.3s ease;
+  }
+
+  #filterToggle:hover {
+    background-color: #e62431;
+    transform: scale(1.05);
   }
 }
 
 .filter {
-  /* background-color: red; */
   margin-right: 2rem;
   opacity: 0.7;
   margin-top: 1rem;
+  transition: all 0.3s ease;
+  transform-origin: center;
 }
 
 .filter:hover {
   cursor: pointer;
   opacity: 1;
+  transform: scale(1.05);
+}
+
+.filter.active {
+  opacity: 1;
+  transform: scale(1.1);
+  color: #fe424d;
 }
 
 .tax-info {
   display: none;
   opacity: 0.7;
-  margin: auto;
+  margin-left: 8px;
+  font-size: 0.9rem;
+  color: #666;
 }
 
 .tax-toggle {
-  border: 1px solid black;
+  border: 1px solid #ddd;
   padding: 0.5rem 1.5rem;
   border-radius: 8px;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.tax-toggle:hover {
+  background-color: #e9ecef;
 }
 
 /* New Listing: Form */

@@ -26,7 +26,7 @@
 let taxBox = document.getElementById("flexSwitchCheckDefault");
 taxBox.addEventListener("click", () => {
   let taxInfo = document.getElementsByClassName("tax-info");
-  for (tax of taxInfo) {
+  for (let tax of taxInfo) {
     if (tax.style.display != "inline") {
       tax.style.display = "inline";
     } else {
@@ -38,9 +38,29 @@ taxBox.addEventListener("click", () => {
 // To view filters on small devices
 const filterToggle = document.getElementById("filterToggle");
 const filters = document.getElementById("filters");
+const filterContainer = document.getElementById("filter-container");
 
 filterToggle.addEventListener("click", () => {
   filters.classList.toggle("open");
+  filterContainer.classList.toggle("open");
+  
+  // Update button text
+  filterToggle.textContent = filterContainer.classList.contains("open") ? "Hide Filters" : "Show Filters";
 });
+
+// Filter listings function with smooth transition
+function filterListings(type) {
+  // Add a loading state to the clicked filter
+  const clickedFilter = document.querySelector(`[data-type="${type}"]`);
+  if (clickedFilter) {
+    clickedFilter.style.opacity = "0.5";
+    clickedFilter.style.transform = "scale(0.95)";
+  }
+  
+  // Small delay to show the click effect
+  setTimeout(() => {
+    window.location.href = `/listings?type=${type}`;
+  }, 150);
+}
 
 
