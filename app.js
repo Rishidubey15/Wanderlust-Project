@@ -13,6 +13,7 @@ const passport = require("passport")
 const LocalStrategy = require("passport-local")
 const User = require("./models/user.js")
 const chatbotRoutes = require('./routes/chatbot');
+const logger = require('./utils/logger');
 require('dotenv').config();
 
 app.set("view engine", "ejs");
@@ -25,17 +26,14 @@ app.use(methodOverride("_method"));
 
 app.engine("ejs", ejsMate);
 
-// const url = "mongodb://127.0.0.1:27017/wanderlust";
 const dbUrl = process.env.ATLASDB_URL;
-
-
 
 main()
   .then(() => {
-    console.log("Connected to Mongodb Atlas");
+    logger.info("Connected to Mongodb Atlas");
   })
   .catch((err) => {
-    console.log(err);
+    logger.error(err);
   });
 
 async function main() {
@@ -51,7 +49,7 @@ const store = MongoStore.create({
 })
 
 store.on("error", () => {
-  console.log("Error in Mongo Session Store", err);
+  logger.error("Error in Mongo Session Store", err);
 })
 
 const sessionOptions = ({
@@ -65,8 +63,6 @@ const sessionOptions = ({
     httpOnly: true,
   },
 })
-
-
 
 
 // Session Middlewares
@@ -102,7 +98,16 @@ app.get("/", (req, res) => {
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+app.use((req, res, next) => {
+  logger.info({ method: req.method, url: req.url, user: req.user?.username }, 'Incoming request');
+  next();
+});
 
+app.use((err, req, res, next) => {
+  logger.error({ err, url: req.url }, 'Unhandled error');
+  let { statusCode = 500, message = "Something went wrong!" } = err;
+  res.status(statusCode).render("./listings/error.ejs", { message });
+});
 
 
 app.all("*", (req, res, next) => {
@@ -117,5 +122,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running at ${port}`);
+  logger.info(`Server is running at ${port}`);
 });
