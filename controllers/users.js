@@ -1,4 +1,5 @@
 const User = require("../models/user.js");
+const { generateToken } = require("../utils/jwt.js");
 
 module.exports.renderSignUpForm = (req, res) => {
   res.render("users/signup.ejs");
@@ -9,16 +10,15 @@ module.exports.signUpUser = async (req, res) => {
     let { username, email, password } = req.body;
     const newUser = new User({ email, username });
     const registeredUser = await User.register(newUser, password);
-    req.login(registeredUser, (err) => {
-      if (err) {
-        return next(err);
-      }
-      req.flash("success", "Welcome to WanderLust");
-      res.redirect("/listings");
+    const token = generateToken(registeredUser);
+    
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000
     });
+    res.redirect("/listings");
   } catch (err) {
-    req.flash("error", err.message);
-    res.redirect("/signup");
+    res.status(400).render("users/signup.ejs", { error: err.message });
   }
 };
 
@@ -27,16 +27,24 @@ module.exports.renderLoginForm = (req, res) => {
 };
 
 module.exports.loginUser = async (req, res) => {
-  req.flash("success", "Welcome to WanderLust. User Logged in!");
-  let redirectUrl = res.locals.redirectUrl || "/listings";
-  res.redirect(redirectUrl);
-};
-module.exports.logoutUser = (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    req.flash("success", "You are now logged out!");
-    res.redirect("/listings");
+  const { username, password } = req.body;
+  const user = await User.findOne({ username });
+  if (!user) {
+    return res.status(400).render("users/login.ejs", { error: "Invalid username or password" });
+  }
+  const isValid = await user.authenticate(password);
+  if (!isValid.user) {
+    return res.status(400).render("users/login.ejs", { error: "Invalid username or password" });
+  }
+  const token = generateToken(user);
+  res.cookie("token", token, {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000
   });
+  res.redirect("/listings");
+};
+
+module.exports.logoutUser = (req, res, next) => {
+  res.clearCookie("token");
+  res.redirect("/listings");
 };

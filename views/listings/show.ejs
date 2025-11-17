@@ -5,7 +5,7 @@
   const listing = <%- JSON.stringify(listing)%>; //Ignore this error the commas turn listing into a string instead of object but then it becomes unaccessible by map
 </script>
 <script src="/js/map.js"></script>
-
+<script src="/js/booking.js"></script>
 
 <link rel="stylesheet" href="/css/responsive.css" />
 
@@ -30,7 +30,7 @@
       <p class="card-text"><b>Country: </b><%=listing.country%></p>
     </div>
 
-    <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+    <% if(currUser && listing.owner && (listing.owner._id ? listing.owner._id.toString() === currUser.id : listing.owner.toString() === currUser.id)) { %>
     <div class="show-btns">
       <button class="btn btn-dark edit-btn">
         <a href="/listings/<%= listing._id %>/edit">Edit this Listing</a>
@@ -39,6 +39,39 @@
         <button class="btn btn-dark">Delete this listing</button>
       </form>
     </div>
+    <% } %>
+
+    <% if(currUser && !(listing.owner._id ? listing.owner._id.toString() === currUser.id : listing.owner.toString() === currUser.id)){ %>
+      <div class="show-btns">
+        <button class="btn btn-dark edit-btn" data-bs-toggle="modal" data-bs-target="#bookingModal">
+          Book this listing
+        </button>
+      </div>
+
+      <!-- Booking Modal -->
+      <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="bookingModalLabel">Select Booking Dates</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="bookingForm" method="POST" action="/listings/<%=listing._id%>/bookings">
+                <div class="mb-3">
+                  <label for="checkIn" class="form-label">Check In</label>
+                  <input type="date" class="form-control" id="checkIn" name="checkIn" required>
+                </div>
+                <div class="mb-3">
+                  <label for="checkOut" class="form-label">Check Out</label>
+                  <input type="date" class="form-control" id="checkOut" name="checkOut" required>
+                </div>
+                <button type="submit" class="btn btn-dark">Confirm Booking</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     <% } %>
   </div>
 
@@ -126,11 +159,11 @@
       <% for (review of listing.reviews) { %>
       <div class="card review col-5 ms-xl-3 mb-3">
         <div class="card-body">
-          <h5 class="card-title"><%= review.author.username %></h5>
+          <h5 class="card-title"><%= review.author && review.author.username ? review.author.username : "Unknown" %></h5>
           <p class="starability-result" data-rating="<%= review.rating %>"></p>
           <p class="card-text"><%= review.comment %></p>
 
-          <% if(currUser) { %>
+          <% if(currUser && review.author && ((review.author._id ? review.author._id.toString() : review.author.toString()) === currUser.id)) { %>
           <form
             method="POST"
             action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE"

@@ -5,7 +5,7 @@ const chatbot = new TravelChatbot();
 const handleChatbotQuery = async (req, res) => {
   try {
     const { message } = req.body;
-    const userId = req.user ? req.user._id : null; // Assuming you have authentication middleware
+    // const userId = req.user ? req.user._id : null; // Assuming you have authentication middleware
     
     if (!message || message.trim().length === 0) {
       return res.status(400).json({ 
@@ -14,9 +14,9 @@ const handleChatbotQuery = async (req, res) => {
     }
 
     // Log the query for observability (as mentioned in your resume)
-    console.log(`Chatbot Query - User: ${userId || 'Anonymous'}, Query: ${message}`);
+    console.log(`Chatbot Query - User: ${'Anonymous'}, Query: ${message}`);
     
-    const response = await chatbot.handleQuery(message, userId);
+    const response = await chatbot.handleQuery(message);
     
     // Log successful response
     console.log(`Chatbot Response Generated - Length: ${response.length} chars`);

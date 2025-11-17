@@ -2,10 +2,8 @@ const express = require('express');
 const router = express.Router();
 const TravelChatbot = require('../services/chatbotService');
 
-// Create chatbot instance
 const chatbot = new TravelChatbot();
 
-// Handle chatbot queries
 router.post('/query', async (req, res) => {
   try {
     const { message } = req.body;
@@ -17,13 +15,9 @@ router.post('/query', async (req, res) => {
       });
     }
 
-    // Log the query for observability (as mentioned in your resume)
-    console.log(`Chatbot Query - User: ${req.user ? req.user._id : 'Anonymous'}, Query: ${message}`);
-    
-    // Get AI response
+
     const response = await chatbot.handleQuery(message);
     
-    // Log successful response
     console.log(`Chatbot Response Generated - Length: ${response.length} chars`);
     
     res.json({
@@ -41,7 +35,6 @@ router.post('/query', async (req, res) => {
   }
 });
 
-// Get chatbot capabilities (for frontend to display)
 router.get('/info', (req, res) => {
   res.json({
     capabilities: [

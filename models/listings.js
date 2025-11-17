@@ -16,8 +16,8 @@ const listingSchema = new Schema({
   },
   price: {
     type: Number,
-    required: true, // Ensure price is mandatory
-    min: 0, // Price cannot be negative
+    required: true, 
+    min: 0,
   },
   location: {
     type: String,
@@ -36,12 +36,12 @@ const listingSchema = new Schema({
   owner: { 
     type: Schema.Types.ObjectId, 
     ref: "User",
-    required: true, // Ensures every listing has an owner
+    required: true,
   },
   geometry: {
     type: {
       type: String,
-      enum: ["Point"], // Enforces 'Point' type for geometry
+      enum: ["Point"],
       required: true,
     },
     coordinates: {
@@ -49,7 +49,7 @@ const listingSchema = new Schema({
       required: true,
       validate: {
         validator: function (value) {
-          return value.length === 2; // Ensures exactly two coordinates [longitude, latitude]
+          return value.length === 2; 
         },
         message: "Coordinates must contain [longitude, latitude]",
       },
@@ -70,8 +70,8 @@ const listingSchema = new Schema({
       "rooms", 
       "pools", 
       "igloo"
-    ], // Restrict to predefined categories
-    required: true, // Make it mandatory
+    ],
+    required: true, 
     default: "rooms",
   },
 });

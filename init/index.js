@@ -1,9 +1,9 @@
-require("dotenv").config(); // Load environment variables
+require("dotenv").config();
 const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Listing = require("../models/listings.js");
 
-const url = process.env.ATLASDB_URL; // Use Atlas connection string
+const url = process.env.ATLASDB_URL;
 
 main()
   .then(() => {

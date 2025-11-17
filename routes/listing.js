@@ -2,44 +2,43 @@ const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
 const Listing = require("../models/listings.js");
-const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
+const { isOwner, validateListing } = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
 const multer = require("multer");
 const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
+const { authenticateJWT } = require("../utils/jwt.js");
 require("dotenv").config();
+
+
 
 
 router
   .route("/")
-
   // Show all listings
   .get(wrapAsync(listingController.showAllListings))
-
-  // Create Listing Route
+  // Create Listing Route (protected)
   .post(
-    isLoggedIn,
+    authenticateJWT,
     upload.single("listing[image]"),
     validateListing,
     wrapAsync(listingController.createNewListing)
   );
 
 // New Route is kept above SHOW ROUTE bcoz database is considering new as id
-router.get("/new", isLoggedIn, listingController.renderNewListingForm);
+router.get("/new", authenticateJWT, listingController.renderNewListingForm);
 
 router.get("/search", async (req, res) => {
   try {
-    const { query } = req.query; // Get the search query from the URL
+    const { query } = req.query; 
     if (!query) {
-      return res.redirect("/listings"); // Redirect if no search term is provided
+      return res.redirect("/listings");
     }
 
-    // Perform a case-insensitive search using MongoDB regex
     const listings = await Listing.find({
-      title: { $regex: query, $options: "i" }, // Search by title
+      title: { $regex: query, $options: "i" },
     });
 
-    // Render a search results page or return JSON
     res.render("listings/searchResults", { listings, query });
   } catch (error) {
     console.error("Error fetching listings:", error);
@@ -53,10 +52,9 @@ router.get("/listings", async (req, res) => {
     let listings;
 
     if (filterType) {
-      // Fetch only listings matching the filter type
       listings = await Listing.find({ type: filterType });
     } else {
-      // Fetch all listings if no filter is selected
+
       listings = await Listing.find({});
     }
     res.render("listings/index", { allListings: listings });
@@ -66,28 +64,26 @@ router.get("/listings", async (req, res) => {
   }
 });
 
+
 router
   .route("/:id")
-
   // Show specific Listing Route
   .get(wrapAsync(listingController.showSpecificListing))
-
-  // Edit Route
+  // Edit Route (protected)
   .put(
-    isLoggedIn,
+    authenticateJWT,
     isOwner,
     upload.single("listing[image]"),
     validateListing,
     wrapAsync(listingController.editListing)
   )
-
-  //Delete Route
-  .delete(isOwner, isLoggedIn, wrapAsync(listingController.destroyListing));
+  // Delete Route (protected)
+  .delete(authenticateJWT, isOwner, wrapAsync(listingController.destroyListing));
 
 // Edit Form render Route
 router.get(
   "/:id/edit",
-  isLoggedIn,
+  authenticateJWT,
   isOwner,
   wrapAsync(listingController.renderEditListingForm)
 );
